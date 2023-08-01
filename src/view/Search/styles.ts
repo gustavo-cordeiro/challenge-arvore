@@ -23,13 +23,11 @@ export const Content = styled.div`
 `
 
 export const ContentResults = styled.div`
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat( 5, minmax(20%, 1fr) );
     justify-content: center;
-    gap: 48px;
+    gap: 5%;
     display: grid;
     margin: 49px 0;
-    width: 46%;
-
 `
 
 export const ContentResultsWrapper = styled.div`

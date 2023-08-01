@@ -5,11 +5,11 @@ export const Content = styled.div`
     background-color: #fff;
     width: 100%;
 
-    @media (min-width: 992px) {
-        padding: 0;
-        margin: 0 auto;
-        width: 19%;
-    }
+    // @media (min-width: 992px) {
+    //     padding: 0;
+    //     margin: 0 auto;
+    //     width: 19%;
+    // }
 
 `
 export const ContentTitle = styled.p`

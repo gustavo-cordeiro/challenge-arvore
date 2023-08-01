@@ -3,15 +3,18 @@ import Home from "./view/Home";
 import Search from "./view/Search";
 
 const useSimpleRouter = () => {
-  const [route, setRoute] = useState<'home' | 'search'>('home');
+  const [route, setRoute] = useState<'home' | 'search'>();
 
   useEffect(() => {
     const { location } = window;
     
-    window.onhashchange = () => {
+    const updateLocation = () => {
       if(!location.hash) setRoute('home');
-      else if(location.hash === '#search') setRoute('search');
+      else if(location.hash.startsWith('#search')) setRoute('search');
     };
+    
+    window.onhashchange = updateLocation;
+    if(!route) updateLocation();
     
   }, [route]);
   

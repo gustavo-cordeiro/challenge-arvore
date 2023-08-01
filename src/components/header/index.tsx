@@ -117,8 +117,10 @@ const Header: React.FC = () => {
           value={value}
           onChange={
             (_, s) => {
-              setValue(s?.value.volumeInfo.title || '');
-              s?.label && setTerm(s.label);
+              if(s?.label) {
+                const query = new URLSearchParams({q: s.label});
+                window.location.href = `./#search?${query.toString()}`;
+              }
             }
           }
         />

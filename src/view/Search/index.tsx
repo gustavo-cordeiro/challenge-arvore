@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../components/header";
-// import Filters from "../../components/filters";
+import Filters from "../../components/filters";
 import {
     Container,
   Content,
@@ -25,7 +25,7 @@ const Search: React.FC = () => {
       <Header />
       <Container>
         <Content>
-        {/* <Filters /> */}
+        <Filters mainTitle="Filter" hasSelectedFilters={false} resetFilters={() => {}} />
         <ContentResults>
           {books.map((shelf) => (
             <>
