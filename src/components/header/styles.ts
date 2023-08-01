@@ -6,6 +6,7 @@ export const Container = styled.div`
     top: 0;
     padding: 16px;
     width: 100%;
+    box-sizing: border-box;
     
     @media (min-width: 992px) {
         left: 0;
@@ -18,6 +19,10 @@ export const Content = styled.div`
     flex-direction: column;
     align-items: center;
 
+    a {
+        color: white !important;
+    }
+
     @media (min-width: 992px) {
         margin: 0 auto;
         flex-direction: row;
@@ -28,23 +33,18 @@ export const Content = styled.div`
     }
 `
 
-export const ContentSearch = styled.div`
-    display: flex;
-    align-items: center;
-    width: 96%;
-    margin: 16px 0 8px;
-    padding-right: 14px;
-
-    @media (min-width: 992px) {
-        width: 70%;
-        margin: 0;
-        padding-right: 0;
-    }
-`
-
 export const ContentUser = styled.div`
     display: none;
     @media (min-width: 992px) {
         display: block;
+    }
+`
+
+export const Nav = styled.nav`
+    display: flex;
+    flex-direction: column;
+
+    & > a {
+        display: inline-block;
     }
 `
