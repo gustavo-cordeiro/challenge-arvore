@@ -7,8 +7,8 @@ export type FilterProps = {
   }
   
   export type FilterContentProps = {
-    price: Price
-    availableItems: AvailableItems
-    availableFormats: AvailableFormats
+    price: any
+    availableItems: any
+    availableFormats: any
   }
   

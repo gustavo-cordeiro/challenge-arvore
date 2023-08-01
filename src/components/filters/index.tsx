@@ -9,11 +9,11 @@ import {
 import { FilterProps } from "./types";
 import { filtersWithInitialState } from "./constants";
 
-const Filter: React.FC = ({
+const Filter: React.FC<FilterProps> = ({
   mainTitle,
   hasSelectedFilters,
   resetFilters,
-}: FilterProps) => {
+}) => {
   const handleToggleCheckbox = () => {
     console.log("click");
   };
