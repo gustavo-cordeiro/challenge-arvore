@@ -1,5 +1,7 @@
 export type FilterProps = {
-    mainTitle: string
+    mainTitle: string;
+    onChange?: (e: any) => void;
+    filters?: any;
   }
   
   export type FilterContentProps = {

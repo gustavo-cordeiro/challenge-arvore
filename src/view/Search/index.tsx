@@ -22,6 +22,7 @@ import { useCachedfetch } from "../../hooks/useCachedFetch";
 
 const Search: React.FC = () => {
   const {data, load} = useCachedfetch<any>();
+  const [filters, setFilters] = React.useState<any>({});
 
   useEffect(() => {
     const query = new URLSearchParams(window.location.search);
@@ -33,13 +34,42 @@ const Search: React.FC = () => {
     load(apiUrl.href);
   }, []);
 
+  // this effect will load state from url
+  // because the dependency array is empty, this effect will run only once
+  useEffect(() => {
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const currentFilters:any = {};
+    
+    urlSearchParams.forEach((value, name) => {
+      currentFilters[name] = value;
+    });
+
+    setFilters(currentFilters);
+  }, []);
+
+  // this effect will update the url when filters change
+  useEffect(() => {
+    const searchParams = new URLSearchParams(filters);
+    if(!searchParams.size) return;
+
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    
+    searchParams.forEach((value, name) => {
+      urlSearchParams.set(name, value);
+    });
+    if(searchParams.toString() === window.location.search.replace('?', '')) return;
+    window.location.search = urlSearchParams.toString();
+  }, [filters]);
+
 
   return (
     <>
       <Header />
       <Container>
         <Content>
-        <Filters mainTitle="Filter"/>
+        <Filters mainTitle="Filter" filters={filters} onChange={filter => {
+          setFilters(filter);
+        }}/>
         <ContentResults>
           
           <>

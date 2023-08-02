@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import {
   Content,
   ContentTitle,
@@ -11,46 +11,20 @@ import { filtersWithInitialState } from "./constants";
 
 const Filter: React.FC<FilterProps> = ({
   mainTitle,
+  onChange,
+  filters = {},
 }) => {
 
-  const [filters, setFilters] = React.useState<any>({});
-  const [hasSelectedFilters, setHasSelectedFilters] = React.useState(false);
-
-  // this effect will load state from url
-  // because the dependency array is empty, this effect will run only once
-  useEffect(() => {
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    const currentFilters:any = {};
-
-    if(urlSearchParams.size > 1) setHasSelectedFilters(true);
-    
-    urlSearchParams.forEach((value, name) => {
-      currentFilters[name] = value;
-    });
-
-    setFilters(currentFilters);
-  }, []);
-
-  // this effect will update the url when filters change
-  useEffect(() => {
-    const searchParams = new URLSearchParams(filters);
-    if(!searchParams.size) return;
-
-    const urlSearchParams = new URLSearchParams(window.location.search);
-    
-    searchParams.forEach((value, name) => {
-      urlSearchParams.set(name, value);
-    });
-
-    window.location.search = urlSearchParams.toString();
+  const hasSelectedFilters = useMemo(() => {
+    return Object.values(filters).length > 1;
   }, [filters]);
 
   const handleToggleCheckbox = (e: any) => {
-    console.log(filters)
-    setFilters({
+    const newFilters = {
       ...filters,
       [e.target.name]: e.target.value,
-    });
+    };
+    onChange?.(newFilters);
   };
 
   const clearFilters = () => {
