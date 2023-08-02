@@ -6,11 +6,11 @@ const Autocomplete: React.FC<AutocompleteProps> = props => {
   const [showSuggestions, setShowSuggestions] = React.useState(false);
   
   const onFocus = useCallback(() => {
-    const { searchProps: {value: term}, suggestions  } = props;
-    if(term && suggestions) {
+    const { searchProps: {value: term} } = props;
+    if(term) {
       setShowSuggestions(true);
     }
-  }, [setShowSuggestions, props.searchProps.value, props.suggestions]);
+  }, [setShowSuggestions, props.searchProps.value ]);
 
   const onBlur = useCallback(() => {
     setTimeout(() => {
@@ -20,8 +20,8 @@ const Autocomplete: React.FC<AutocompleteProps> = props => {
 
   const onInputChange = useCallback( (e:any) => {
     const { searchProps: { onChange: _onInputChange} } = props;
-    _onInputChange?.(e);
     onFocus();
+    _onInputChange?.(e);
     props.onChange?.(e, null);
   } , [props.searchProps.onChange, onFocus]);
 
