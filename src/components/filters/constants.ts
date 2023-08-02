@@ -3,26 +3,32 @@ import { FilterContentProps } from "./types";
 export const filtersWithInitialState: FilterContentProps = {
     availableItems: {
       title: 'Disponibilidade para venda',
+      group: 'filter',
       items: [
         {
-          id: 1,
+          id: 'free-ebooks',
+          label: 'Grátis',
           checked: false,
         },
         {
-          id: 2,
+          id: 'paid-ebooks',
+          label: 'Pagos',
           checked: false,
         },
       ],
     },
     availableFormats: {
       title: 'Formatos disponíveis',
+      group: 'printType',
       items: [
         {
-          id: 1,
+          id: 'books',
+          label: 'Livros',
           checked: false,
         },
         {
-          id: 2,
+          id: 'magazines',
+          label: 'Revistas',
           checked: false,
         },
       ],

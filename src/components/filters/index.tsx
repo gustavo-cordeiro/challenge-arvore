@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Content,
   ContentTitle,
@@ -11,17 +11,32 @@ import { filtersWithInitialState } from "./constants";
 
 const Filter: React.FC<FilterProps> = ({
   mainTitle,
-  hasSelectedFilters,
-  resetFilters,
+  onChange,
+  filters = {},
 }) => {
-  const handleToggleCheckbox = () => {
-    console.log("click");
+
+  const hasSelectedFilters = useMemo(() => {
+    return Object.values(filters).length > 1;
+  }, [filters]);
+
+  const handleToggleCheckbox = (e: any) => {
+    const newFilters = {
+      ...filters,
+      [e.target.name]: e.target.value,
+    };
+    onChange?.(newFilters);
   };
+
+  const clearFilters = () => {
+    const searchParams = new URLSearchParams(window.location.search);
+    window.location.search = `q=${searchParams.get('q')}`;
+  };
+
   return (
     <Content>
       <ContentTitle>{mainTitle}</ContentTitle>
       {hasSelectedFilters && (
-        <Button onClick={resetFilters}>Limpar Filtro</Button>
+        <Button onClick={clearFilters}>Limpar Filtro</Button>
       )}
       {Object.entries(filtersWithInitialState).map(([filterType, category]) => (
         <div key={filterType}>
@@ -31,12 +46,14 @@ const Filter: React.FC<FilterProps> = ({
               {category?.items?.map((item: any) => (
                 <li key={item.id}>
                   <input
-                    name={item.label}
-                    type="checkbox"
-                    checked={item.checked}
-                    onChange={() => handleToggleCheckbox()}
+                    id={item.id}
+                    name={category.group}
+                    type="radio"
+                    value={item.id}
+                    checked={filters[category.group] === item.id}
+                    onChange={handleToggleCheckbox}
                   />
-                  <span>{item.label}</span>
+                  <label htmlFor={item.id}>{item.label}</label>
                 </li>
               ))}
             </ul>
