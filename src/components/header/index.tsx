@@ -1,71 +1,10 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Container, Content, ContentUser, Nav } from "./styles";
 import Autocomplete from "../autocomplete";
 import { Suggestion } from "../autocomplete/types";
+import { useDebounceCachedFetch } from "../../hooks/useCachedFetch";
 
-const useDebounce = <T,>(debounceFn: (args:T) => void, delay: number) => {
-  const timer = React.useRef<ReturnType<typeof setTimeout>>();
 
-  const debaouncedLoad = (args:T) => {
-    if (timer) clearTimeout(timer.current);
-
-    timer.current = setTimeout(() => {
-      timer.current = undefined;
-      debounceFn(args);
-    }, delay);
-  };
-
-  return debaouncedLoad;
-};
-
-type CachedFetch = <T>() => {
-  loading: boolean;
-  data: T | null;
-  error: any;
-  load: (url: string) => void;
-}
-
-const useCachedfetch: CachedFetch = <T,>() => {
-  const cache = useRef<{ [key: string]: T }>({});
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<Error | any>(null);
-  const [data, setData] = useState<T | null>(null);
-
-  const customFetch = useCallback((url: string) => {
-    if (!url) return;
-    (async () => {
-      setLoading(true);
-
-      if (cache.current[url]) {
-        const data = cache.current[url];
-        setData(data);
-        setLoading(false);
-      } else {
-        try {
-          const response = await fetch(url);
-          const data: T = await response.json();
-          cache.current[url] = data;
-          setData(data);
-          setLoading(false);
-        } catch (error) {
-          setError(error);
-        }
-      }
-    })();
-  }, []);
-
-  return { loading, data, error, load: customFetch };
-};
-
-const useDebounceCachedFetch = <T,>() => {
-  const cachedFetch = useCachedfetch<T>();
-  
-  const debouncedFetch = useDebounce<string>(term => {
-    cachedFetch.load(term)
-  }, 250);
-
-  return { ...cachedFetch, load: debouncedFetch };
-};
 
 const Header: React.FC = () => {
   const [term, setTerm] = useState("");

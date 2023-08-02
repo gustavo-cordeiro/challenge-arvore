@@ -6,7 +6,7 @@ import { footerAllrightsReserved, helpLink, privacyAndPolicy, termsAndUsage } fr
 const Home = () => (
   <>
     <Header />
-    <Shelves />
+    {/* <Shelves /> */}
     <Footer
       text={footerAllrightsReserved}
       privacyText={privacyAndPolicy}
