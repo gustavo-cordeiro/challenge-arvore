@@ -3,14 +3,8 @@ import styled from "styled-components";
 
 export const Content = styled.div`
     background-color: #fff;
+    color: #053B4B;
     width: 100%;
-
-    // @media (min-width: 992px) {
-    //     padding: 0;
-    //     margin: 0 auto;
-    //     width: 19%;
-    // }
-
 `
 export const ContentTitle = styled.p`
     color: #9EAEB7;
@@ -26,9 +20,9 @@ export const Button = styled.button`
     background-color: #ADB7BF;
 `
 export const FilterTitle = styled.p`
-    color: ;
     font-size: 16px;
     font-weight: 700;
+    color: #053B4B;
 `
 export const FilterContent = styled.div`
     & > ul {
@@ -39,8 +33,4 @@ export const FilterContent = styled.div`
     & > ul > li {
         margin-bottom: 3px;
     }
-    & > ul > li > span {
-        color: #053B4B;
-    }
-
 `

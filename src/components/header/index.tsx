@@ -74,6 +74,15 @@ const Header: React.FC = () => {
   const [typing, setTyping] = useState(false);
 
   useEffect(() => {
+    const query = new URLSearchParams(window.location.search);
+
+    if(query.has('q')) {
+      const q = query.get('q');
+      if(q) setTerm(decodeURI(q));
+    }
+  }, []);
+
+  useEffect(() => {
     if(term) load(`https://www.googleapis.com/books/v1/volumes?q=${term}&startIndex=0&maxResults=10`);
     else setValue('');
   }, [term]);
@@ -119,7 +128,7 @@ const Header: React.FC = () => {
             (_, s) => {
               if(s?.label) {
                 const query = new URLSearchParams({q: s.label});
-                window.location.href = `./#search?${query.toString()}`;
+                window.location.href = `./?${query.toString()}#search`;
               }
             }
           }

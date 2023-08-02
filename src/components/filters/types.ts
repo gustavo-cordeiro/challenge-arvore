@@ -1,13 +1,9 @@
 export type FilterProps = {
     mainTitle: string
-    // filters: FilterContentProps
-    // dispatch: React.Dispatch<React.SetStateAction<boolean>>
-    hasSelectedFilters: boolean
-    resetFilters: () => void
   }
   
   export type FilterContentProps = {
-    availableItems: any
-    availableFormats: any
+    availableItems: any;
+    availableFormats: any;
   }
   
